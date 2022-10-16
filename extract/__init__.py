@@ -1,5 +1,8 @@
-from . import countries, customers, products, sales, times, promotions, channels
 import time
+
+from . import (channels, countries, customers, products, promotions, sales,
+               times)
+
 
 def truncate(db_context):
     start = time.time()
@@ -12,6 +15,7 @@ def truncate(db_context):
     promotions.truncate(db_context)
     end = time.time()
     print(f"TRUNCATE TOOK: {end - start} seconds")
+
 
 def extract(db_context):
     start = time.time()

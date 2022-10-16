@@ -1,5 +1,5 @@
 from config import StagingProperties
-from extract import countries, truncate, extract
+from extract import truncate, extract
 from utils.db_connection import Db_Connection
 
 
