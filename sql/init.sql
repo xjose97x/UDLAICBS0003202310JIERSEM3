@@ -1,0 +1,2 @@
+CREATE DATABASE jierdbstg;
+CREATE DATABASE jierdbsor;
