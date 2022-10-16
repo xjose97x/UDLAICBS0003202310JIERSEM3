@@ -1,7 +1,7 @@
 from dotenv import dotenv_values
 
 core_properties = dotenv_values("./config/core.properties")
-staging_properties = dotenv_values("./config/core.properties")
+staging_properties = dotenv_values("./config/staging.properties")
 data_properties = dotenv_values("./config/data.properties")
 
 class CoreProperties:
