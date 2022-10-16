@@ -9,4 +9,3 @@ def run(db_context):
     customers = pandas.read_csv(f'{DataProperties.DATA_PATH}/customers.csv')
     customers = customers.rename(columns={'CUST_MAIN_PHONE_NUMBER': 'CUST_MAIN_PHONE_INTEGER'})
     customers.to_sql('CUSTOMERS', db_context, if_exists='append', index=False)
-    db_context.dispose()

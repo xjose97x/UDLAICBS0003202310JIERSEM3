@@ -8,4 +8,3 @@ def truncate(db_context):
 def run(db_context):
     promotions = pandas.read_csv(f'{DataProperties.DATA_PATH}/promotions.csv')
     promotions.to_sql('PROMOTIONS', db_context, if_exists='append', index=False)
-    db_context.dispose()

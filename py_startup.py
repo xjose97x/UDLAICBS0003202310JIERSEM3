@@ -11,3 +11,4 @@ with db_context.begin(): # transaction
         truncate(db_context)
         extract(db_context)
 
+db_context.dispose()

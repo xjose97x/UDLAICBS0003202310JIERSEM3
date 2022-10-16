@@ -14,6 +14,3 @@ def run(db_context):
     
     times['CALENDAR_MONTH_NAME'] = '' # Set empty value
     times.to_sql('TIMES', db_context, if_exists='append', index=False)
-    db_context.dispose()
-
-# run()

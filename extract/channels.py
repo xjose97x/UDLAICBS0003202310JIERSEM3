@@ -8,4 +8,3 @@ def truncate(db_context):
 def run(db_context):
     channels = pandas.read_csv(f'{DataProperties.DATA_PATH}/channels.csv')
     channels.to_sql('CHANNELS', db_context, if_exists='append', index=False)
-    db_context.dispose()
