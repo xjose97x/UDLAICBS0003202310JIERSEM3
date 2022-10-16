@@ -7,6 +7,7 @@ db_context = Db_Connection(
         'mysql', StagingProperties.URL, StagingProperties.PORT, StagingProperties.USER,
         StagingProperties.PASSWORD, StagingProperties.NAME).start()
 
-truncate(db_context)
-extract(db_context)
+with db_context.begin(): # transaction
+        truncate(db_context)
+        extract(db_context)
 
