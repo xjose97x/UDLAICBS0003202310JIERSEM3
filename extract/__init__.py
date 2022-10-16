@@ -3,7 +3,6 @@ import time
 
 def truncate(db_context):
     start = time.time()
-    db_context.execute("SET FOREIGN_KEY_CHECKS = 0")
     sales.truncate(db_context)
     customers.truncate(db_context)
     channels.truncate(db_context)
@@ -11,7 +10,6 @@ def truncate(db_context):
     products.truncate(db_context)
     times.truncate(db_context)
     promotions.truncate(db_context)
-    db_context.execute("SET FOREIGN_KEY_CHECKS = 1")
     end = time.time()
     print(f"TRUNCATE TOOK: {end - start} seconds")
 
