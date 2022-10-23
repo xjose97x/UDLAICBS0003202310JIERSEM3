@@ -2,7 +2,7 @@ import pandas
 from config import DataProperties
 
 def truncate(db_context):
-    db_context.execute('TRUNCATE TABLE SALES')
+    db_context.execute('TRUNCATE TABLE SALES_EXT')
 
 def run(db_context):
     channels = pandas.read_csv(f'{DataProperties.DATA_PATH}/sales.csv')

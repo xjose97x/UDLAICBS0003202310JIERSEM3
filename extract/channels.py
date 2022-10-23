@@ -3,7 +3,7 @@ from config import DataProperties
 
 
 def truncate(db_context):
-    db_context.execute('TRUNCATE TABLE CHANNELS')
+    db_context.execute('TRUNCATE TABLE CHANNELS_EXT')
 
 
 def run(db_context):

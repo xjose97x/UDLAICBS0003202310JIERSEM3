@@ -2,7 +2,7 @@ import pandas
 from config import DataProperties
 
 def truncate(db_context):
-    db_context.execute('TRUNCATE TABLE TIMES')
+    db_context.execute('TRUNCATE TABLE TIMES_EXT')
 
 def run(db_context):
     times = pandas.read_csv(f'{DataProperties.DATA_PATH}/times.csv', dtype="string")

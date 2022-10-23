@@ -1,6 +1,8 @@
 from config import StagingProperties
 from extract import truncate, extract
+from transform import transform
 from utils.db_connection import Db_Connection
+from utils import query_utils
 
 
 db_context = Db_Connection(
@@ -10,8 +12,8 @@ db_context = Db_Connection(
 with db_context.begin(): # transaction
         truncate(db_context)
         extract(db_context)
-        # etl_process = generate_etl_revision(db_context)
-        # transform(db_context, etl_revision)
+        etl_process_id = query_utils.generate_etl_process_id(db_context)
+        transform(db_context, etl_process_id)
 
 
 channels_count = db_context.execute('SELECT COUNT(*) FROM CHANNELS_EXT').scalar()
