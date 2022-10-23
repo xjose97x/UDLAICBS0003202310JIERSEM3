@@ -12,4 +12,4 @@ def run(db_context):
                     'CALENDAR_MONTH_NUMBER': 'CALENDAR_MONTH_INTEGER'})
     
     times['CALENDAR_MONTH_NAME'] = '' # Set empty value
-    times.to_sql('TIMES', db_context, if_exists='append', index=False)
+    times.to_sql('TIMES_EXT', db_context, if_exists='append', index=False)

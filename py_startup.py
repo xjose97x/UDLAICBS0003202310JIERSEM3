@@ -10,27 +10,29 @@ db_context = Db_Connection(
 with db_context.begin(): # transaction
         truncate(db_context)
         extract(db_context)
+        # etl_process = generate_etl_revision(db_context)
+        # transform(db_context, etl_revision)
 
 
-channels_count = db_context.execute('SELECT COUNT(*) FROM CHANNELS').scalar()
+channels_count = db_context.execute('SELECT COUNT(*) FROM CHANNELS_EXT').scalar()
 assert channels_count == 5
 
-countries_count = db_context.execute('SELECT COUNT(*) FROM COUNTRIES').scalar()
+countries_count = db_context.execute('SELECT COUNT(*) FROM COUNTRIES_EXT').scalar()
 assert countries_count == 23
 
-customers_count = db_context.execute('SELECT COUNT(*) FROM CUSTOMERS').scalar()
+customers_count = db_context.execute('SELECT COUNT(*) FROM CUSTOMERS_EXT').scalar()
 assert customers_count == 55500
 
-products_count = db_context.execute('SELECT COUNT(*) FROM PRODUCTS').scalar()
+products_count = db_context.execute('SELECT COUNT(*) FROM PRODUCTS_EXT').scalar()
 assert products_count == 72
 
-promotions_count = db_context.execute('SELECT COUNT(*) FROM PROMOTIONS').scalar()
+promotions_count = db_context.execute('SELECT COUNT(*) FROM PROMOTIONS_EXT').scalar()
 assert promotions_count == 503
 
-sales_count = db_context.execute('SELECT COUNT(*) FROM SALES').scalar()
+sales_count = db_context.execute('SELECT COUNT(*) FROM SALES_EXT').scalar()
 assert sales_count == 918843
 
-times_count = db_context.execute('SELECT COUNT(*) FROM TIMES').scalar()
+times_count = db_context.execute('SELECT COUNT(*) FROM TIMES_EXT').scalar()
 assert times_count == 1826
 
 db_context.dispose()
