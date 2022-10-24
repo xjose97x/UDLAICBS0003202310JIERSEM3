@@ -14,8 +14,8 @@ def read_sql_by_process(table_name, columns, etl_process_id, db_context):
     return pandas.read_sql_query(f'SELECT {columns_str} FROM {table_name} WHERE ETL_PROCESS_ID = {etl_process_id}', db_context)
 
 
-def get_surrogate_key_from_natural_key(table_name, natural_key_col, natural_key_val, db_context):
+def get_surrogate_key_and_natural_key_pairs(table_name, natural_key_col, db_context):
     """
     Get the surrogate key value from a natural key (business key)
     """
-    return db_context.execute(f'SELECT ID FROM {table_name} WHERE {natural_key_col} = {natural_key_val} LIMIT 1').scalar()
+    return pandas.read_sql_query(f'SELECT ID, {natural_key_col} FROM {table_name}', db_context).set_index(natural_key_col).to_dict()['ID']
