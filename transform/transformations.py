@@ -1,4 +1,7 @@
 
+from datetime import datetime
+
+
 def month_name(month_number):
     """Return the name of the month for the given month number.
 
@@ -28,3 +31,9 @@ def month_name(month_number):
         11: "November",
         12: "December"
     }[month_number]
+
+def datetime_from_str(date_string):
+    """
+    Return a datetime object from a string.
+    """
+    return datetime.strptime(date_string,'%d-%b-%y')

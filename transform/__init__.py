@@ -13,4 +13,4 @@ def transform(db_context, etl_process_id):
     products.transform(db_context, etl_process_id)
     sales.transform(db_context, etl_process_id)
     end = time.time()
-    print(f"INSERT TOOK: {end - start} seconds")
+    print(f"TRANSFORM TOOK: {end - start} seconds")
