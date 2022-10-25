@@ -15,6 +15,7 @@ core_db_context = Db_Connection(
     CoreProperties.PASSWORD, CoreProperties.NAME).start()
 
 etl_process_id = query_utils.generate_etl_process_id(staging_db_context)
+print(f'ETL Process ID: {etl_process_id}')
 
 with staging_db_context.begin():  # transaction
     truncate(staging_db_context)
