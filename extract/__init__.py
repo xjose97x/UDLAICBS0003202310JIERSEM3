@@ -27,7 +27,7 @@ def extract(db_context):
     products.run(db_context)
     sales.run(db_context)
     end = time.time()
-    print(f"INSERT TOOK: {end - start} seconds")
+    print(f"EXTRACT TOOK: {end - start} seconds")
 
 
 def tests(db_context):
