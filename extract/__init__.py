@@ -27,4 +27,27 @@ def extract(db_context):
     products.run(db_context)
     sales.run(db_context)
     end = time.time()
-    print(f"INSERT TOOK: {end - start} seconds")
+    print(f"EXTRACT TOOK: {end - start} seconds")
+
+
+def tests(db_context):
+    channels_count = db_context.execute('SELECT COUNT(*) FROM CHANNELS_EXT').scalar()
+    assert channels_count == 5, f"Expected 5 channels, got {channels_count}"
+
+    countries_count = db_context.execute('SELECT COUNT(*) FROM COUNTRIES_EXT').scalar()
+    assert countries_count == 23, f"Expected 23 countries, got {countries_count}"
+
+    customers_count = db_context.execute('SELECT COUNT(*) FROM CUSTOMERS_EXT').scalar()
+    assert customers_count == 55500, f"Expected 55500 customers, got {customers_count}"
+
+    products_count = db_context.execute('SELECT COUNT(*) FROM PRODUCTS_EXT').scalar()
+    assert products_count == 72, f"Expected 72 products, got {products_count}"
+
+    promotions_count = db_context.execute('SELECT COUNT(*) FROM PROMOTIONS_EXT').scalar()
+    assert promotions_count == 503, f"Expected 503 promotions, got {promotions_count}"
+
+    sales_count = db_context.execute('SELECT COUNT(*) FROM SALES_EXT').scalar()
+    assert sales_count == 918843, f"Expected 918843 sales, got {sales_count}"
+
+    times_count = db_context.execute('SELECT COUNT(*) FROM TIMES_EXT').scalar()
+    assert times_count == 1826, f"Expected 1826 times, got {times_count}"

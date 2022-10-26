@@ -1,37 +1,36 @@
-from config import StagingProperties
-from extract import truncate, extract
+from config import StagingProperties, CoreProperties
+from extract import truncate, extract, tests as extract_tests
+from transform import transform, tests as transform_tests
+from load import load, tests as load_tests
 from utils.db_connection import Db_Connection
+from utils import query_utils
 
 
-db_context = Db_Connection(
-        'mysql', StagingProperties.URL, StagingProperties.PORT, StagingProperties.USER,
-        StagingProperties.PASSWORD, StagingProperties.NAME).start()
+staging_db_context = Db_Connection(
+    'mysql', StagingProperties.URL, StagingProperties.PORT, StagingProperties.USER,
+    StagingProperties.PASSWORD, StagingProperties.NAME).start()
 
-with db_context.begin(): # transaction
-        truncate(db_context)
-        extract(db_context)
+core_db_context = Db_Connection(
+    'mysql', CoreProperties.URL, CoreProperties.PORT, CoreProperties.USER,
+    CoreProperties.PASSWORD, CoreProperties.NAME).start()
+
+etl_process_id = query_utils.generate_etl_process_id(staging_db_context)
+print(f'ETL Process ID: {etl_process_id}')
+
+with staging_db_context.begin():  # transaction
+    truncate(staging_db_context)
+    extract(staging_db_context)
+    transform(staging_db_context, etl_process_id)
 
 
-channels_count = db_context.execute('SELECT COUNT(*) FROM CHANNELS').scalar()
-assert channels_count == 5
+with core_db_context.begin():  # transaction
+    load(staging_db_context, core_db_context, etl_process_id)
 
-countries_count = db_context.execute('SELECT COUNT(*) FROM COUNTRIES').scalar()
-assert countries_count == 23
 
-customers_count = db_context.execute('SELECT COUNT(*) FROM CUSTOMERS').scalar()
-assert customers_count == 55500
+extract_tests(staging_db_context)
+transform_tests(staging_db_context, etl_process_id)
+load_tests(core_db_context)
 
-products_count = db_context.execute('SELECT COUNT(*) FROM PRODUCTS').scalar()
-assert products_count == 72
 
-promotions_count = db_context.execute('SELECT COUNT(*) FROM PROMOTIONS').scalar()
-assert promotions_count == 503
-
-sales_count = db_context.execute('SELECT COUNT(*) FROM SALES').scalar()
-assert sales_count == 918843
-
-times_count = db_context.execute('SELECT COUNT(*) FROM TIMES').scalar()
-assert times_count == 1826
-
-db_context.dispose()
-
+staging_db_context.dispose()
+core_db_context.dispose()
